@@ -1,0 +1,1398 @@
+/* CSS Variables for Mobile Optimization */
+:root {
+    --transition-duration: 0.3s;
+    --border-radius: 8px;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    --mobile-padding: 15px;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #E31E24 0%, #990000 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Edwardian Script ITC', 'Brush Script MT', cursive;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Main Content Layout */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Input Section Styles */
+.input-section {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.input-section h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    border-bottom: 3px solid #E31E24;
+    padding-bottom: 10px;
+}
+
+/* Form Styles */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #E31E24;
+    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
+}
+
+/* Subject Input Styles */
+.subject-input {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e1e5e9;
+}
+
+.subject-input h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.marks-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #555;
+    text-align: center;
+    padding: 10px;
+    background: #e9ecef;
+    border-radius: 5px;
+}
+
+.subject-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.subject-row label {
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.subject-row input {
+    padding: 10px;
+    border: 2px solid #e1e5e9;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+/* Helper to place obtained/total fields side-by-side within a grid cell */
+.pair-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+/* Prevent table overflow on small screens */
+.academic-performance,
+.general-progress {
+    overflow-x: auto;
+}
+
+.performance-table,
+.overall-summary,
+.progress-table {
+    min-width: 600px;
+}
+
+/* Button Styles */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #E31E24 0%, #990000 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(227, 30, 36, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+/* Result Section Styles */
+.result-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.result-actions {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Result Card Styles - Exact Image Match */
+.result-card {
+    padding: 20px;
+    background: white;
+    font-family: 'Times New Roman', serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.result-card-content {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 2px solid #333;
+    padding: 40px;
+    background: white;
+    min-height: calc(100vh - 40px);
+}
+
+/* Header Section - Exact Image Match */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.school-branding {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.school-logo {
+    width: 70px;
+    height: 70px;
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.school-info h2 {
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.school-info p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.school-name-large {
+    font-size: 3rem;
+    font-family: 'Edwardian Script ITC', 'Brush Script MT', cursive;
+    color: #333;
+    text-align: right;
+}
+
+/* Result Details - Exact Image Match */
+.result-details {
+    margin-bottom: 40px;
+}
+
+.result-details h3 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.detail-item label {
+    font-weight: bold;
+    min-width: 120px;
+    font-size: 1.1rem;
+}
+
+.detail-item span {
+    border-bottom: 1px solid #333;
+    flex: 1;
+    padding: 8px 0;
+    font-size: 1.1rem;
+}
+
+/* Academic Performance Table - Exact Image Match */
+.academic-performance {
+    margin-bottom: 40px;
+}
+
+.academic-performance h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.performance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.performance-table th {
+    background: #f0f0f0;
+    padding: 15px 10px;
+    text-align: center;
+    border: 1px solid #333;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.performance-table td {
+    padding: 12px 10px;
+    border: 1px solid #333;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.performance-table td:first-child {
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Overall Summary Table - Exact Image Match */
+.overall-summary {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.overall-summary th {
+    background: #f0f0f0;
+    padding: 12px 10px;
+    text-align: center;
+    border: 1px solid #333;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.overall-summary td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* General Progress Section - Exact Image Match */
+.general-progress {
+    margin-bottom: 40px;
+}
+
+.general-progress h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.progress-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.progress-table th {
+    background: #f0f0f0;
+    padding: 12px 10px;
+    text-align: center;
+    border: 1px solid #333;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.progress-table td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* PDF export compact styles (applied to the cloned node only) */
+.pdf-export {
+    background: #ffffff;
+}
+
+.pdf-export .result-card {
+    padding: 0;
+}
+
+.pdf-export .result-card-content {
+    border: none;
+    padding: 12px;
+    min-height: auto;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    max-width: 780px;
+    width: 100%;
+}
+
+.pdf-export .result-header,
+.pdf-export .result-details,
+.pdf-export .academic-performance,
+.pdf-export .general-progress,
+.pdf-export .comments-section,
+.pdf-export .comments-signatures {
+    margin-bottom: 16px;
+}
+
+.pdf-export .school-info h2 {
+    font-size: 1.4rem;
+}
+
+.pdf-export .school-name-large {
+    font-size: 1.9rem;
+}
+
+.pdf-export .result-details h3,
+.pdf-export .academic-performance h3,
+.pdf-export .general-progress h3,
+.pdf-export .comments-section h3 {
+    font-size: 1rem;
+}
+
+.pdf-export .performance-table,
+.pdf-export .overall-summary,
+.pdf-export .progress-table {
+    font-size: 0.8rem;
+}
+
+.pdf-export .performance-table th,
+.pdf-export .performance-table td,
+.pdf-export .overall-summary th,
+.pdf-export .overall-summary td,
+.pdf-export .progress-table th,
+.pdf-export .progress-table td {
+    padding: 6px 4px;
+    font-size: 0.78rem;
+}
+
+.grading-key {
+    font-size: 1rem;
+    color: #666;
+}
+
+.grading-key span {
+    margin-right: 20px;
+}
+
+/* Comments Sections - Exact Image Match */
+.comments-section {
+    margin-bottom: 40px;
+}
+
+.comments-section h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.comment-box {
+    border: 1px solid #333;
+    min-height: 100px;
+    padding: 15px;
+    background: #fafafa;
+}
+
+/* Comments and Signatures - Exact Image Match */
+.comments-signatures {
+    margin-top: 40px;
+}
+
+.comment-line {
+    margin-bottom: 25px;
+}
+
+.comment-line label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.comment-line span {
+    border-bottom: 1px solid #333;
+    display: block;
+    min-height: 25px;
+}
+
+.signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.signature-item {
+    text-align: center;
+}
+
+.signature-line {
+    border-bottom: 1px solid #333;
+    height: 35px;
+    margin-bottom: 8px;
+}
+
+.signature-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Enhanced Mobile Responsive Design */
+
+/* Large Tablets and Small Laptops */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .result-card {
+        min-height: 100vh;
+        padding: 20px;
+    }
+    
+    .result-card-content {
+        min-height: calc(100vh - 40px);
+        padding: 20px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+}
+
+/* Tablets and Medium Screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    .input-section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .input-section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 15px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .subject-input {
+        padding: 15px;
+    }
+    
+    .marks-header {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .subject-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .subject-row label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .subject-row input {
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        padding: 15px 20px;
+        font-size: 16px;
+        justify-content: center;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    /* Keep paired inputs side-by-side on tablets */
+    .pair-inputs {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    /* Maintain exact image layout on mobile */
+    .result-card {
+        min-height: 100vh;
+        padding: 15px;
+    }
+    
+    .result-card-content {
+        min-height: calc(100vh - 30px);
+        padding: 20px;
+    }
+    
+    .result-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .school-branding {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .school-logo {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        margin: 0 auto;
+    }
+    
+    .school-info h2 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+    
+    .school-info p {
+        text-align: center;
+        font-size: 0.7rem;
+    }
+    
+    .school-name-large {
+        text-align: center;
+        font-size: 1.8rem;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .detail-item label {
+        min-width: auto;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+    
+    .detail-item span {
+        width: 100%;
+        min-height: 20px;
+        font-size: 0.8rem;
+    }
+    
+    .signatures {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 0.75rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .grading-key {
+        font-size: 0.7rem;
+        text-align: center;
+    }
+    
+    .grading-key span {
+        display: block;
+        margin-bottom: 3px;
+    }
+    
+    .comment-box {
+        min-height: 40px;
+        padding: 6px;
+    }
+    
+    .comment-line {
+        margin-bottom: 8px;
+    }
+    
+    .comment-line label {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+    }
+    
+    .comment-line span {
+        min-height: 15px;
+    }
+    
+    .signature-line {
+        height: 18px;
+        margin-bottom: 3px;
+    }
+    
+    .signature-label {
+        font-size: 0.6rem;
+    }
+}
+
+/* Mobile Phones - Small Screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    header p {
+        font-size: 0.9rem;
+    }
+    
+    .input-section {
+        padding: 15px;
+    }
+    
+    .input-section h2 {
+        font-size: 1.2rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    .subject-input {
+        padding: 10px;
+    }
+    
+    .subject-input h3 {
+        font-size: 1.1rem;
+    }
+    
+    .marks-header {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    .subject-row input {
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    /* Stack obtained/total vertically on small phones */
+    .pair-inputs {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Single page result card for small mobile */
+    .result-card {
+        min-height: 100vh;
+        padding: 8px;
+    }
+    
+    .result-card-content {
+        min-height: calc(100vh - 16px);
+        padding: 8px;
+    }
+    
+    .school-info h2 {
+        font-size: 1.1rem;
+    }
+    
+    .school-name-large {
+        font-size: 1.4rem;
+    }
+    
+    .result-details h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .details-grid {
+        gap: 8px;
+    }
+    
+    .detail-item {
+        gap: 2px;
+    }
+    
+    .detail-item span {
+        min-height: 15px;
+        padding: 2px 0;
+        font-size: 0.65rem;
+    }
+    
+    .detail-item label {
+        font-size: 0.65rem;
+    }
+    
+    .signatures {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .signature-line {
+        height: 10px;
+    }
+    
+    .signature-label {
+        font-size: 0.45rem;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 0.55rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 1px;
+        font-size: 0.5rem;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+    
+    .comment-box {
+        min-height: 20px;
+        padding: 2px;
+    }
+    
+    .comment-line {
+        margin-bottom: 4px;
+    }
+    
+    .comment-line label {
+        font-size: 0.55rem;
+        margin-bottom: 1px;
+    }
+    
+    .comment-line span {
+        min-height: 8px;
+    }
+    
+    .grading-key {
+        font-size: 0.5rem;
+    }
+    
+    .grading-key span {
+        margin-right: 4px;
+        margin-bottom: 1px;
+    }
+}
+
+/* Extra Small Mobile Devices */
+@media (max-width: 360px) {
+    .container {
+        padding: 3px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    header p {
+        font-size: 0.8rem;
+    }
+
+    .input-section {
+        padding: 10px;
+    }
+
+    .input-section h2 {
+        font-size: 1.1rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .subject-input {
+        padding: 8px;
+    }
+
+    .subject-input h3 {
+        font-size: 1rem;
+    }
+
+    .marks-header {
+        font-size: 0.8rem;
+        padding: 5px;
+    }
+
+    .btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .result-card {
+        min-height: 100vh;
+        padding: 8px;
+    }
+    
+    .result-card-content {
+        min-height: calc(100vh - 16px);
+        padding: 10px;
+    }
+    
+    .school-info h2 {
+        font-size: 1.2rem;
+    }
+    
+    .school-name-large {
+        font-size: 1.6rem;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 0.65rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 4px 2px;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1rem;
+    }
+    
+    .grading-key {
+        font-size: 0.75rem;
+    }
+    
+    .grading-key span {
+        margin-bottom: 3px;
+    }
+
+    /* Maintain stacked layout for the smallest devices */
+    .pair-inputs {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #resultSection, #resultSection * {
+        visibility: visible;
+    }
+    #resultSection {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        background: white;
+    }
+    .result-actions {
+        display: none !important;
+    }
+    .result-card {
+        border: none;
+        padding: 0;
+        min-height: auto;
+    }
+    .result-card-content {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        min-height: auto;
+    }
+    .container, header, .input-section {
+        display: none;
+    }
+    /* Ensure background graphics are printed if needed, though usually better without for text */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+
+/* Landscape Mobile Orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+    .main-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .input-section {
+        padding: 15px;
+    }
+    
+    .result-card {
+        min-height: 100vh;
+        padding: 15px;
+    }
+    
+    .result-card-content {
+        min-height: calc(100vh - 30px);
+        padding: 15px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .subject-row {
+        grid-template-columns: 2fr 1fr;
+        gap: 8px;
+    }
+    
+    .form-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .result-actions {
+        flex-direction: row;
+        gap: 8px;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile Loader */
+.mobile-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.mobile-loader p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    .form-group input,
+    .form-group select,
+    .subject-row input {
+        min-height: 44px;
+    }
+    
+    .form-group label {
+        margin-bottom: 10px;
+    }
+    
+    .subject-row label {
+        margin-bottom: 8px;
+    }
+    
+    /* Improve touch targets */
+    .form-group input:focus,
+    .form-group select:focus,
+    .subject-row input:focus {
+        outline: 2px solid #667eea;
+        outline-offset: 2px;
+    }
+    
+    /* Add haptic feedback simulation */
+    .btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+    /* Reduce animations for better performance */
+    * {
+        transition-duration: var(--transition-duration);
+    }
+    
+    /* Optimize scrolling */
+    .main-content {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improve text rendering */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    
+    /* Optimize images and icons */
+    .school-logo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print Styles - Exact Image Match */
+@media print {
+    @page {
+        size: A4;
+        margin: 8mm;
+    }
+
+    body {
+        background: white;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 0;
+    }
+    
+    .input-section,
+    .result-actions {
+        display: none;
+    }
+    
+    .result-section {
+        box-shadow: none;
+        border-radius: 0;
+    }
+    
+    .result-card {
+        padding: 0;
+        min-height: auto;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+    
+    .result-card-content {
+        border: none;
+        padding: 12px;
+        min-height: auto;
+        font-size: 0.9rem;
+        line-height: 1.35;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    /* Compact spacing for print */
+    .result-header {
+        margin-bottom: 16px;
+    }
+    
+    .result-details {
+        margin-bottom: 16px;
+    }
+    
+    .academic-performance {
+        margin-bottom: 16px;
+    }
+    
+    .general-progress {
+        margin-bottom: 16px;
+    }
+    
+    .comments-section {
+        margin-bottom: 16px;
+    }
+    
+    .comments-signatures {
+        margin-top: 16px;
+    }
+    
+    /* Reduced font sizes for print */
+    .school-info h2 {
+        font-size: 1.4rem;
+    }
+    
+    .school-name-large {
+        font-size: 1.9rem;
+    }
+    
+    .result-details h3 {
+        font-size: 1.1rem;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1rem;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 0.8rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 6px 4px;
+        font-size: 0.78rem;
+    }
+    
+    .grading-key {
+        font-size: 0.75rem;
+    }
+    
+    .comment-box {
+        min-height: 40px;
+        padding: 6px;
+    }
+    
+    .comment-line label {
+        font-size: 0.85rem;
+    }
+    
+    .signature-line {
+        height: 18px;
+    }
+    
+    .signature-label {
+        font-size: 0.7rem;
+    }
+}

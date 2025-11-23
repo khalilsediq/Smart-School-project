@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <title>Student Result Card Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>The Smart school</h1>
+        </header>
+
+        <div class="main-content">
+            <!-- Mobile Loading Indicator -->
+            <div id="mobileLoader" class="mobile-loader" style="display: none;">
+                <div class="loader-spinner"></div>
+                <p>Generating Result...</p>
+            </div>
+
+            <!-- Input Form Section -->
+            <div class="input-section">
+                <h2>Enter Student Information</h2>
+                <form id="resultForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentName">Student Name:</label>
+                            <input type="text" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentClass">Class:</label>
+                            <select id="studentClass" required>
+                                <option value="">Select Class</option>
+                                <option value="PlayGroup">PlayGroup</option>
+                                <option value="Nursery">Nursery</option>
+                                <option value="KinderGarden">KinderGarden</option>
+                                <option value="One">Class One</option>
+                                <option value="Two">Class Two</option>
+                                <option value="Three">Class Three</option>
+                                <option value="Four">Class Four</option>
+                                <option value="Five">Class Five</option>
+                                <option value="Six">Class Six</option>
+                                <option value="Seven">Class Seven</option>
+                                <option value="Eight">Class Eight</option>
+                                <option value="Nine">Class Nine</option>
+                                <option value="Ten">Class Ten</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rollNo">Roll No:</label>
+                            <input type="text" id="rollNo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalMarks">Total Marks:</label>
+                            <input type="number" id="totalMarks" min="0" placeholder="e.g., 800, 1200, 1500" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campusName">Campus Name:</label>
+                            <input type="text" id="campusName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="academicYear">Academic Year:</label>
+                            <input type="text" id="academicYear" placeholder="2024" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="section">Section:</label>
+                            <input type="text" id="section" placeholder="A" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="term">Term:</label>
+                            <select id="term" required>
+                                <option value="I">Term I</option>
+                                <option value="II">Term II</option>
+                                <option value="III">Term III</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="subjectsContainer">
+                        <!-- Subjects will be dynamically loaded here -->
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calculator"></i> Generate Result
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Result Preview Section -->
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-actions">
+                    <button class="btn btn-success" onclick="downloadPDF()">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="btn btn-info" onclick="downloadDOCX()">
+                        <i class="fas fa-file-word"></i> Download DOCX
+                    </button>
+                    <button class="btn btn-warning" onclick="printResult()">
+                        <i class="fas fa-print"></i> Print Result
+                    </button>
+                </div>
+
+                <div class="result-card" id="resultCard">
+                    <!-- Result card content will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="logo.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
