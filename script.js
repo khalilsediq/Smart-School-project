@@ -112,7 +112,8 @@ function generateResultCard(formData) {
             <!-- Header Section -->
             <div class="result-header">
                 <div class="school-branding">
-                    <img src="${SCHOOL_LOGO_BASE64}" alt="Logo" class="school-logo-img" style="width: 80px; height: auto; margin-right: 15px;">
+                <div class="school-branding">
+                    <img src="TSS-LOGO.png" alt="Logo" class="school-logo-img" style="width: 80px; height: auto; margin-right: 15px;">
                     <div class="school-info">
                         <h2>The Smart School</h2>
                         <p>Excellence in Education</p>
@@ -322,252 +323,256 @@ function downloadPDF() {
 
     // --- Header ---
     // School Logo
-    if (typeof SCHOOL_LOGO_BASE64 !== 'undefined' && SCHOOL_LOGO_BASE64) {
-    doc.addImage(SCHOOL_LOGO_BASE64, 'PNG', 15, 10, 25, 25);
-} else {
-    // Fallback if logo not loaded
-    doc.setDrawColor(...darkColor);
-    doc.setLineWidth(0.5);
-    doc.rect(15, 15, 20, 20);
-    addText("Logo", 25, 26, 10, 'bold', 'center');
-}
+    // School Logo
+    const logoImg = document.getElementById('schoolLogo');
+    if (logoImg && logoImg.complete && logoImg.naturalHeight !== 0) {
+        doc.addImage(logoImg, 'PNG', 15, 10, 25, 25);
+    } else if (typeof SCHOOL_LOGO_BASE64 !== 'undefined' && SCHOOL_LOGO_BASE64) {
+        doc.addImage(SCHOOL_LOGO_BASE64, 'PNG', 15, 10, 25, 25);
+    } else {
+        // Fallback if logo not loaded
+        doc.setDrawColor(...darkColor);
+        doc.setLineWidth(0.5);
+        doc.rect(15, 15, 20, 20);
+        addText("Logo", 25, 26, 10, 'bold', 'center');
+    }
 
-// School Info
-addText("The Smart School", 40, 22, 24, 'bold', 'left', primaryColor);
-addText("Excellence in Education", 40, 28, 10, 'italic', 'left', [100, 100, 100]);
+    // School Info
+    addText("The Smart School", 40, 22, 24, 'bold', 'left', primaryColor);
+    addText("Excellence in Education", 40, 28, 10, 'italic', 'left', [100, 100, 100]);
 
-// School Name Large (Right side)
-doc.setFont('times', 'italic');
-doc.setFontSize(22);
-doc.setTextColor(...darkColor);
-doc.text("The Smart School", 195, 25, { align: 'right' });
+    // School Name Large (Right side)
+    doc.setFont('times', 'italic');
+    doc.setFontSize(22);
+    doc.setTextColor(...darkColor);
+    doc.text("The Smart School", 195, 25, { align: 'right' });
 
-addLine(15, 40, 195, 40);
+    addLine(15, 40, 195, 40);
 
-// --- Student Info ---
-const studentName = document.getElementById('studentName').value || "-";
-const className = document.getElementById('studentClass').value || "-";
-const rollNo = document.getElementById('rollNo').value || "-";
-const section = document.getElementById('section').value || "-";
-const campusName = document.getElementById('campusName').value || "-";
-const academicYear = document.getElementById('academicYear').value || "-";
-const term = document.getElementById('term').value || "-";
-const totalMarks = document.getElementById('totalMarks').value || "-";
+    // --- Student Info ---
+    const studentName = document.getElementById('studentName').value || "-";
+    const className = document.getElementById('studentClass').value || "-";
+    const rollNo = document.getElementById('rollNo').value || "-";
+    const section = document.getElementById('section').value || "-";
+    const campusName = document.getElementById('campusName').value || "-";
+    const academicYear = document.getElementById('academicYear').value || "-";
+    const term = document.getElementById('term').value || "-";
+    const totalMarks = document.getElementById('totalMarks').value || "-";
 
-let yPos = 50;
-addText(`Result Card - Term ${term}`, 105, yPos, 16, 'bold', 'center');
+    let yPos = 50;
+    addText(`Result Card - Term ${term}`, 105, yPos, 16, 'bold', 'center');
 
-yPos += 10;
-const leftColX = 15;
-const rightColX = 110;
-const rowHeight = 7;
+    yPos += 10;
+    const leftColX = 15;
+    const rightColX = 110;
+    const rowHeight = 7;
 
-// Row 1
-addText("Campus Name:", leftColX, yPos, 10, 'bold');
-addText(campusName, leftColX + 35, yPos);
-addText("Academic Year:", rightColX, yPos, 10, 'bold');
-addText(`20${academicYear}, Term ${term}`, rightColX + 35, yPos);
+    // Row 1
+    addText("Campus Name:", leftColX, yPos, 10, 'bold');
+    addText(campusName, leftColX + 35, yPos);
+    addText("Academic Year:", rightColX, yPos, 10, 'bold');
+    addText(`20${academicYear}, Term ${term}`, rightColX + 35, yPos);
 
-// Row 2
-yPos += rowHeight;
-addText("Student Name:", leftColX, yPos, 10, 'bold');
-addText(studentName, leftColX + 35, yPos);
-addText("Class/Section:", rightColX, yPos, 10, 'bold');
-addText(`${className} / ${section}`, rightColX + 35, yPos);
+    // Row 2
+    yPos += rowHeight;
+    addText("Student Name:", leftColX, yPos, 10, 'bold');
+    addText(studentName, leftColX + 35, yPos);
+    addText("Class/Section:", rightColX, yPos, 10, 'bold');
+    addText(`${className} / ${section}`, rightColX + 35, yPos);
 
-// Row 3
-yPos += rowHeight;
-addText("Roll No:", leftColX, yPos, 10, 'bold');
-addText(rollNo, leftColX + 35, yPos);
-addText("Total Marks:", rightColX, yPos, 10, 'bold');
-addText(totalMarks, rightColX + 35, yPos);
+    // Row 3
+    yPos += rowHeight;
+    addText("Roll No:", leftColX, yPos, 10, 'bold');
+    addText(rollNo, leftColX + 35, yPos);
+    addText("Total Marks:", rightColX, yPos, 10, 'bold');
+    addText(totalMarks, rightColX + 35, yPos);
 
-// --- Academic Performance Table ---
-yPos += 15;
-addText("Academic Performance", 105, yPos, 14, 'bold', 'center');
-yPos += 5;
+    // --- Academic Performance Table ---
+    yPos += 15;
+    addText("Academic Performance", 105, yPos, 14, 'bold', 'center');
+    yPos += 5;
 
-// Scrape data from the DOM table generated by existing logic
-// We'll rely on the data already in the DOM or re-calculate it. 
-// Re-calculating is safer to ensure we have the data even if DOM isn't perfect.
-// But to keep it synced with what the user sees, let's grab from the DOM table if it exists.
-// Actually, let's re-use the logic to get data cleanly.
+    // Scrape data from the DOM table generated by existing logic
+    // We'll rely on the data already in the DOM or re-calculate it. 
+    // Re-calculating is safer to ensure we have the data even if DOM isn't perfect.
+    // But to keep it synced with what the user sees, let's grab from the DOM table if it exists.
+    // Actually, let's re-use the logic to get data cleanly.
 
-const subjects = classSubjects[className] || [];
-const subjectData = subjects.map(subject => {
-    const termTotalEl = document.querySelector(`[data-subject="${subject}"].term-total`);
-    const termObtEl = document.querySelector(`[data-subject="${subject}"].term-obtained`);
-    const examTotalEl = document.querySelector(`[data-subject="${subject}"].exam-total`);
-    const examObtEl = document.querySelector(`[data-subject="${subject}"].exam-obtained`);
+    const subjects = classSubjects[className] || [];
+    const subjectData = subjects.map(subject => {
+        const termTotalEl = document.querySelector(`[data-subject="${subject}"].term-total`);
+        const termObtEl = document.querySelector(`[data-subject="${subject}"].term-obtained`);
+        const examTotalEl = document.querySelector(`[data-subject="${subject}"].exam-total`);
+        const examObtEl = document.querySelector(`[data-subject="${subject}"].exam-obtained`);
 
-    const termTotal = termTotalEl ? parseFloat(termTotalEl.value) || 0 : 0;
-    const termObtained = termObtEl ? parseFloat(termObtEl.value) || 0 : 0;
-    const examTotal = examTotalEl ? parseFloat(examTotalEl.value) || 0 : 0;
-    const examObtained = examObtEl ? parseFloat(examObtEl.value) || 0 : 0;
+        const termTotal = termTotalEl ? parseFloat(termTotalEl.value) || 0 : 0;
+        const termObtained = termObtEl ? parseFloat(termObtEl.value) || 0 : 0;
+        const examTotal = examTotalEl ? parseFloat(examTotalEl.value) || 0 : 0;
+        const examObtained = examObtEl ? parseFloat(examObtEl.value) || 0 : 0;
 
-    const termPercent = termTotal > 0 ? (termObtained / termTotal) * 100 : 0;
-    const examPercent = examTotal > 0 ? (examObtained / examTotal) * 100 : 0;
-    const combinedTotal = termTotal + examTotal;
-    const combinedObtained = termObtained + examObtained;
-    const averagePercent = combinedTotal > 0 ? (combinedObtained / combinedTotal) * 100 : 0;
-    const grade = calculateGrade(averagePercent);
+        const termPercent = termTotal > 0 ? (termObtained / termTotal) * 100 : 0;
+        const examPercent = examTotal > 0 ? (examObtained / examTotal) * 100 : 0;
+        const combinedTotal = termTotal + examTotal;
+        const combinedObtained = termObtained + examObtained;
+        const averagePercent = combinedTotal > 0 ? (combinedObtained / combinedTotal) * 100 : 0;
+        const grade = calculateGrade(averagePercent);
 
-    return [
-        subject,
-        `${termObtained} / ${termTotal} (${termPercent.toFixed(0)}%)`,
-        `${examObtained} / ${examTotal} (${examPercent.toFixed(0)}%)`,
-        `${averagePercent.toFixed(2)}%`,
-        grade
-    ];
-});
+        return [
+            subject,
+            `${termObtained} / ${termTotal} (${termPercent.toFixed(0)}%)`,
+            `${examObtained} / ${examTotal} (${examPercent.toFixed(0)}%)`,
+            `${averagePercent.toFixed(2)}%`,
+            grade
+        ];
+    });
 
-doc.autoTable({
-    startY: yPos,
-    head: [['Subject', 'Term (Obt/Total)', 'Exam (Obt/Total)', 'Average %', 'Grade']],
-    body: subjectData,
-    theme: 'grid',
-    headStyles: { fillColor: [255, 255, 255], textColor: primaryColor, fontStyle: 'bold', halign: 'center', lineWidth: 0.1, lineColor: primaryColor },
-    bodyStyles: { textColor: darkColor, halign: 'center', lineColor: [200, 200, 200] },
-    columnStyles: { 0: { halign: 'left', fontStyle: 'bold' } },
-    margin: { left: 15, right: 15 }
-});
+    doc.autoTable({
+        startY: yPos,
+        head: [['Subject', 'Term (Obt/Total)', 'Exam (Obt/Total)', 'Average %', 'Grade']],
+        body: subjectData,
+        theme: 'grid',
+        headStyles: { fillColor: [255, 255, 255], textColor: primaryColor, fontStyle: 'bold', halign: 'center', lineWidth: 0.1, lineColor: primaryColor },
+        bodyStyles: { textColor: darkColor, halign: 'center', lineColor: [200, 200, 200] },
+        columnStyles: { 0: { halign: 'left', fontStyle: 'bold' } },
+        margin: { left: 15, right: 15 }
+    });
 
-yPos = doc.lastAutoTable.finalY + 10;
+    yPos = doc.lastAutoTable.finalY + 10;
 
-// --- Overall Summary ---
-// Calculate totals
-let totalTermObt = 0, totalTermTot = 0, totalExamObt = 0, totalExamTot = 0;
-subjects.forEach(subject => {
-    const termTotalEl = document.querySelector(`[data-subject="${subject}"].term-total`);
-    const termObtEl = document.querySelector(`[data-subject="${subject}"].term-obtained`);
-    const examTotalEl = document.querySelector(`[data-subject="${subject}"].exam-total`);
-    const examObtEl = document.querySelector(`[data-subject="${subject}"].exam-obtained`);
+    // --- Overall Summary ---
+    // Calculate totals
+    let totalTermObt = 0, totalTermTot = 0, totalExamObt = 0, totalExamTot = 0;
+    subjects.forEach(subject => {
+        const termTotalEl = document.querySelector(`[data-subject="${subject}"].term-total`);
+        const termObtEl = document.querySelector(`[data-subject="${subject}"].term-obtained`);
+        const examTotalEl = document.querySelector(`[data-subject="${subject}"].exam-total`);
+        const examObtEl = document.querySelector(`[data-subject="${subject}"].exam-obtained`);
 
-    totalTermTot += termTotalEl ? parseFloat(termTotalEl.value) || 0 : 0;
-    totalTermObt += termObtEl ? parseFloat(termObtEl.value) || 0 : 0;
-    totalExamTot += examTotalEl ? parseFloat(examTotalEl.value) || 0 : 0;
-    totalExamObt += examObtEl ? parseFloat(examObtEl.value) || 0 : 0;
-});
+        totalTermTot += termTotalEl ? parseFloat(termTotalEl.value) || 0 : 0;
+        totalTermObt += termObtEl ? parseFloat(termObtEl.value) || 0 : 0;
+        totalExamTot += examTotalEl ? parseFloat(examTotalEl.value) || 0 : 0;
+        totalExamObt += examObtEl ? parseFloat(examObtEl.value) || 0 : 0;
+    });
 
-const grandObt = totalTermObt + totalExamObt;
-const grandTot = totalTermTot + totalExamTot;
-const overallPerc = grandTot > 0 ? (grandObt / grandTot) * 100 : 0;
-const overallGrade = calculateGrade(overallPerc);
+    const grandObt = totalTermObt + totalExamObt;
+    const grandTot = totalTermTot + totalExamTot;
+    const overallPerc = grandTot > 0 ? (grandObt / grandTot) * 100 : 0;
+    const overallGrade = calculateGrade(overallPerc);
 
-// Mock class stats (since we don't have a backend DB)
-const classHighest = (overallPerc + 5 > 100) ? 100 : overallPerc + 5;
-const classLowest = (overallPerc - 10 < 0) ? 0 : overallPerc - 10;
+    // Mock class stats (since we don't have a backend DB)
+    const classHighest = (overallPerc + 5 > 100) ? 100 : overallPerc + 5;
+    const classLowest = (overallPerc - 10 < 0) ? 0 : overallPerc - 10;
 
-doc.autoTable({
-    startY: yPos,
-    head: [['Total Term', 'Total Exam', 'Overall %', 'Overall Grade']],
-    body: [[
-        `${totalTermObt} / ${totalTermTot}`,
-        `${totalExamObt} / ${totalExamTot}`,
-        `${overallPerc.toFixed(2)}%`,
-        overallGrade
-    ]],
-    theme: 'grid',
-    headStyles: { fillColor: primaryColor, textColor: 255, fontStyle: 'bold', halign: 'center' },
-    bodyStyles: { textColor: darkColor, halign: 'center' },
-    margin: { left: 15, right: 15 }
-});
+    doc.autoTable({
+        startY: yPos,
+        head: [['Total Term', 'Total Exam', 'Overall %', 'Overall Grade']],
+        body: [[
+            `${totalTermObt} / ${totalTermTot}`,
+            `${totalExamObt} / ${totalExamTot}`,
+            `${overallPerc.toFixed(2)}%`,
+            overallGrade
+        ]],
+        theme: 'grid',
+        headStyles: { fillColor: primaryColor, textColor: 255, fontStyle: 'bold', halign: 'center' },
+        bodyStyles: { textColor: darkColor, halign: 'center' },
+        margin: { left: 15, right: 15 }
+    });
 
-// Second row of summary
-doc.autoTable({
-    startY: doc.lastAutoTable.finalY - 1, // Overlap borders slightly or just below
-    head: [['Class Highest %', 'Class Lowest %', 'Class Average %', 'Position']],
-    body: [[
-        `${classHighest.toFixed(0)}%`,
-        `${classLowest.toFixed(0)}%`,
-        `${overallPerc.toFixed(0)}%`,
-        "-"
-    ]],
-    theme: 'grid',
-    headStyles: { fillColor: lightGray, textColor: darkColor, fontStyle: 'bold', halign: 'center' },
-    bodyStyles: { textColor: darkColor, halign: 'center' },
-    margin: { left: 15, right: 15 },
-    showHead: 'firstPage' // Ensure header is shown
-});
+    // Second row of summary
+    doc.autoTable({
+        startY: doc.lastAutoTable.finalY - 1, // Overlap borders slightly or just below
+        head: [['Class Highest %', 'Class Lowest %', 'Class Average %', 'Position']],
+        body: [[
+            `${classHighest.toFixed(0)}%`,
+            `${classLowest.toFixed(0)}%`,
+            `${overallPerc.toFixed(0)}%`,
+            "-"
+        ]],
+        theme: 'grid',
+        headStyles: { fillColor: lightGray, textColor: darkColor, fontStyle: 'bold', halign: 'center' },
+        bodyStyles: { textColor: darkColor, halign: 'center' },
+        margin: { left: 15, right: 15 },
+        showHead: 'firstPage' // Ensure header is shown
+    });
 
-yPos = doc.lastAutoTable.finalY + 10;
+    yPos = doc.lastAutoTable.finalY + 10;
 
-// --- General Progress ---
-// Check if we have space, else add page
-if (yPos > 240) {
-    doc.addPage();
-    yPos = 20;
-}
+    // --- General Progress ---
+    // Check if we have space, else add page
+    if (yPos > 240) {
+        doc.addPage();
+        yPos = 20;
+    }
 
-addText("General Progress", 105, yPos, 14, 'bold', 'center');
-yPos += 5;
+    addText("General Progress", 105, yPos, 14, 'bold', 'center');
+    yPos += 5;
 
-doc.autoTable({
-    startY: yPos,
-    head: [['Art', 'Attendance', 'Conduct']],
-    body: [['-', '-', '-']],
-    theme: 'grid',
-    headStyles: { fillColor: lightGray, textColor: darkColor, fontStyle: 'bold', halign: 'center' },
-    bodyStyles: { textColor: darkColor, halign: 'center' },
-    margin: { left: 15, right: 15 }
-});
+    doc.autoTable({
+        startY: yPos,
+        head: [['Art', 'Attendance', 'Conduct']],
+        body: [['-', '-', '-']],
+        theme: 'grid',
+        headStyles: { fillColor: lightGray, textColor: darkColor, fontStyle: 'bold', halign: 'center' },
+        bodyStyles: { textColor: darkColor, halign: 'center' },
+        margin: { left: 15, right: 15 }
+    });
 
-doc.autoTable({
-    startY: doc.lastAutoTable.finalY - 1,
-    head: [['Effort', 'PE/Games', 'Punctuality']],
-    body: [['-', '-', '-']],
-    theme: 'grid',
-    headStyles: { fillColor: lightGray, textColor: darkColor, fontStyle: 'bold', halign: 'center' },
-    bodyStyles: { textColor: darkColor, halign: 'center' },
-    margin: { left: 15, right: 15 }
-});
+    doc.autoTable({
+        startY: doc.lastAutoTable.finalY - 1,
+        head: [['Effort', 'PE/Games', 'Punctuality']],
+        body: [['-', '-', '-']],
+        theme: 'grid',
+        headStyles: { fillColor: lightGray, textColor: darkColor, fontStyle: 'bold', halign: 'center' },
+        bodyStyles: { textColor: darkColor, halign: 'center' },
+        margin: { left: 15, right: 15 }
+    });
 
-yPos = doc.lastAutoTable.finalY + 8;
-addText("Key: A = Excellent, B = Good, S = Satisfactory, NI = Needs Improvement", 105, yPos, 9, 'normal', 'center', [100, 100, 100]);
+    yPos = doc.lastAutoTable.finalY + 8;
+    addText("Key: A = Excellent, B = Good, S = Satisfactory, NI = Needs Improvement", 105, yPos, 9, 'normal', 'center', [100, 100, 100]);
 
-yPos += 10;
+    yPos += 10;
 
-// --- Comments & Signatures ---
-// Check space
-if (yPos > 230) {
-    doc.addPage();
-    yPos = 20;
-}
+    // --- Comments & Signatures ---
+    // Check space
+    if (yPos > 230) {
+        doc.addPage();
+        yPos = 20;
+    }
 
-// Comments boxes
-const boxHeight = 15;
-addText("Clubs, Societies & Other Co-Curricular Activities:", 15, yPos, 10, 'bold');
-doc.rect(15, yPos + 2, 180, boxHeight);
+    // Comments boxes
+    const boxHeight = 15;
+    addText("Clubs, Societies & Other Co-Curricular Activities:", 15, yPos, 10, 'bold');
+    doc.rect(15, yPos + 2, 180, boxHeight);
 
-yPos += boxHeight + 10;
-addText("Values Education - Overall Comments:", 15, yPos, 10, 'bold');
-doc.rect(15, yPos + 2, 180, boxHeight);
+    yPos += boxHeight + 10;
+    addText("Values Education - Overall Comments:", 15, yPos, 10, 'bold');
+    doc.rect(15, yPos + 2, 180, boxHeight);
 
-yPos += boxHeight + 10;
-addText("Class Teacher's Comments:", 15, yPos, 10, 'bold');
-addLine(65, yPos, 195, yPos); // Line for comment
+    yPos += boxHeight + 10;
+    addText("Class Teacher's Comments:", 15, yPos, 10, 'bold');
+    addLine(65, yPos, 195, yPos); // Line for comment
 
-yPos += 10;
-addText("School Head's Comments:", 15, yPos, 10, 'bold');
-addLine(65, yPos, 195, yPos); // Line for comment
+    yPos += 10;
+    addText("School Head's Comments:", 15, yPos, 10, 'bold');
+    addLine(65, yPos, 195, yPos); // Line for comment
 
-// Signatures
-yPos += 25;
-const sigY = yPos;
-const sigWidth = 40;
-const gap = (180 - (sigWidth * 4)) / 3;
+    // Signatures
+    yPos += 25;
+    const sigY = yPos;
+    const sigWidth = 40;
+    const gap = (180 - (sigWidth * 4)) / 3;
 
-let x = 15;
-const signatures = ["Class Teacher", "Campus Stamp", "Head of School", "Date"];
+    let x = 15;
+    const signatures = ["Class Teacher", "Campus Stamp", "Head of School", "Date"];
 
-signatures.forEach(sig => {
-    addLine(x, sigY, x + sigWidth, sigY);
-    addText(sig, x + (sigWidth / 2), sigY + 5, 9, 'normal', 'center', [100, 100, 100]);
-    x += sigWidth + gap;
-});
+    signatures.forEach(sig => {
+        addLine(x, sigY, x + sigWidth, sigY);
+        addText(sig, x + (sigWidth / 2), sigY + 5, 9, 'normal', 'center', [100, 100, 100]);
+        x += sigWidth + gap;
+    });
 
-// Save
-doc.save(`Result_Card_${studentName}.pdf`);
+    // Save
+    doc.save(`Result_Card_${studentName}.pdf`);
 }
 
 // Download DOCX function
@@ -701,19 +706,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Generate result with slight delay for mobile
         setTimeout(() => {
-            const resultCard = document.getElementById('resultCard');
-            resultCard.innerHTML = generateResultCard(formData);
+            try {
+                const resultCard = document.getElementById('resultCard');
+                resultCard.innerHTML = generateResultCard(formData);
 
-            // Hide loader
-            mobileLoader.style.display = 'none';
+                // Hide loader
+                mobileLoader.style.display = 'none';
 
-            // Show result section
-            document.getElementById('resultSection').style.display = 'block';
+                // Show result section
+                document.getElementById('resultSection').style.display = 'block';
 
-            // Scroll to result
-            document.getElementById('resultSection').scrollIntoView({
-                behavior: 'smooth'
-            });
+                // Scroll to result
+                document.getElementById('resultSection').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                console.error("Error generating result:", error);
+                alert("An error occurred while generating the result. Please check the console for details.");
+                mobileLoader.style.display = 'none';
+            }
         }, window.innerWidth <= 768 ? 500 : 100);
     });
 
@@ -765,6 +776,8 @@ document.addEventListener('input', function (e) {
 
 // Mobile-specific enhancements
 document.addEventListener('DOMContentLoaded', function () {
+    // Logo is now handled directly in HTML
+
     // Prevent zoom on input focus for iOS
     const inputs = document.querySelectorAll('input[type="number"], input[type="text"], select');
     inputs.forEach(input => {
@@ -853,7 +866,17 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-}); 
+});
 
 
 
+
+// Helper function to calculate grade
+function calculateGrade(percentage) {
+    if (percentage >= 90) return 'A+';
+    if (percentage >= 80) return 'A';
+    if (percentage >= 70) return 'B';
+    if (percentage >= 60) return 'C';
+    if (percentage >= 50) return 'D';
+    return 'F';
+}
