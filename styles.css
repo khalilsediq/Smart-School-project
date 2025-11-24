@@ -260,10 +260,16 @@ header p {
 /* Result Card Styles - Exact Image Match */
 .result-card {
     padding: 20px;
-    background: white;
+    background: #ffffff;
+    /* Ensure white background */
+    color: #333333;
+    /* Ensure dark text */
     font-family: 'Times New Roman', serif;
     line-height: 1.6;
     min-height: 100vh;
+    position: relative;
+    /* Ensure it stacks correctly */
+    z-index: 10;
 }
 
 .result-card-content {
@@ -271,7 +277,8 @@ header p {
     margin: 0 auto;
     border: 2px solid #333;
     padding: 40px;
-    background: white;
+    background: #ffffff;
+    /* Ensure white background */
     min-height: calc(100vh - 40px);
 }
 
