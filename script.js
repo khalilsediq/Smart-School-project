@@ -112,8 +112,10 @@ function generateResultCard(formData) {
             <!-- Header Section -->
             <div class="result-header">
                 <div class="school-branding">
-                <div class="school-branding">
-                    <img src="TSS-LOGO.png" alt="Logo" class="school-logo-img" style="width: 80px; height: auto; margin-right: 15px;">
+
+                    <div class="school-logo">
+                        <img src="TSS-LOGO.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
                     <div class="school-info">
                         <h2>The Smart School</h2>
                         <p>Excellence in Education</p>

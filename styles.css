@@ -297,14 +297,12 @@ header p {
 }
 
 .school-logo {
-    width: 70px;
-    height: 70px;
-    border: 2px solid #333;
+    width: 80px;
+    height: 80px;
+    /* border: 2px solid #333; Remove border if using actual image */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
-    font-weight: bold;
 }
 
 .school-info h2 {
