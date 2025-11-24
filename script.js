@@ -340,14 +340,16 @@ function downloadPDF() {
     }
 
     // School Info
-    addText("The Smart School", 40, 22, 24, 'bold', 'left', primaryColor);
-    addText("Excellence in Education", 40, 28, 10, 'italic', 'left', [100, 100, 100]);
-
-    // School Name Large (Right side)
+    // Centered Header
     doc.setFont('times', 'italic');
-    doc.setFontSize(22);
-    doc.setTextColor(...darkColor);
-    doc.text("The Smart School", 195, 25, { align: 'right' });
+    doc.setFontSize(28);
+    doc.setTextColor(...primaryColor); // Red
+    doc.text("The Smart School", 105, 22, { align: 'center' });
+
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(12);
+    doc.setTextColor(100, 100, 100); // Grey
+    doc.text("Excellence in Education", 105, 28, { align: 'center' });
 
     addLine(15, 40, 195, 40);
 
