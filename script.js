@@ -579,6 +579,8 @@ function downloadPDF() {
 
 // Download DOCX function
 // Download DOCX function
+// Download DOCX function
+// Download DOCX function
 async function downloadDOCX() {
     console.log("Starting downloadDOCX...");
 
@@ -596,40 +598,267 @@ async function downloadDOCX() {
 
     try {
         console.log("Initializing DOCX document...");
-        const { Document, Packer, Paragraph, TextRun, AlignmentType } = docx;
+        const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, BorderStyle, ImageRun, Header, Footer } = docx;
 
-        const studentName = document.getElementById('studentName').value || "Student";
-        const className = document.getElementById('studentClass').value || "Class";
+        // Extract Data
+        const studentName = document.getElementById('studentName').value || "-";
+        const className = document.getElementById('studentClass').value || "-";
+        const rollNo = document.getElementById('rollNo').value || "-";
+        const section = document.getElementById('section').value || "-";
+        const campusName = document.getElementById('campusName').value || "-";
+        const academicYear = document.getElementById('academicYear').value || "-";
+        const term = document.getElementById('term').value || "-";
+        const totalMarks = document.getElementById('totalMarks').value || "-";
 
+        // Helper for bold text
+        const boldText = (text, size = 20, color = "000000", font = "Times New Roman") => new TextRun({ text: text, bold: true, size: size, color: color, font: font });
+        const normalText = (text, size = 20, color = "000000", font = "Times New Roman") => new TextRun({ text: text, size: size, color: color, font: font });
+        const italicText = (text, size = 20, color = "000000", font = "Times New Roman") => new TextRun({ text: text, italics: true, size: size, color: color, font: font });
+
+        // Helper for table cell
+        const createCell = (text, bold = false, width = 2500, fillColor = "FFFFFF", textColor = "000000") => {
+            return new TableCell({
+                children: [new Paragraph({ children: [bold ? boldText(text, 16, textColor) : normalText(text, 16, textColor)], alignment: AlignmentType.CENTER })],
+                width: { size: width, type: WidthType.DXA },
+                verticalAlign: "center",
+                shading: { fill: fillColor }
+            });
+        };
+
+        // Prepare Logo
+        let logoImage = null;
+        try {
+            // Try to get logo from DOM first
+            const imgElement = document.getElementById('schoolLogo');
+            if (imgElement && imgElement.src) {
+                const response = await fetch(imgElement.src);
+                const blob = await response.blob();
+                const buffer = await blob.arrayBuffer();
+                logoImage = new ImageRun({
+                    data: buffer,
+                    transformation: { width: 60, height: 60 }
+                });
+            } else if (typeof SCHOOL_LOGO_BASE64 !== 'undefined' && SCHOOL_LOGO_BASE64) {
+                // Fallback to base64 variable if available
+                const base64Response = await fetch(SCHOOL_LOGO_BASE64);
+                const base64Blob = await base64Response.blob();
+                const base64Buffer = await base64Blob.arrayBuffer();
+                logoImage = new ImageRun({
+                    data: base64Buffer,
+                    transformation: { width: 60, height: 60 }
+                });
+            }
+        } catch (e) {
+            console.warn("Could not load logo for DOCX:", e);
+        }
+
+        // --- Academic Performance Data ---
+        const subjects = classSubjects[className] || [];
+        let totalTermObt = 0, totalTermTot = 0, totalExamObt = 0, totalExamTot = 0;
+
+        const subjectRows = subjects.map(subject => {
+            const termTotalEl = document.querySelector(`[data-subject="${subject}"].term-total`);
+            const termObtEl = document.querySelector(`[data-subject="${subject}"].term-obtained`);
+            const examTotalEl = document.querySelector(`[data-subject="${subject}"].exam-total`);
+            const examObtEl = document.querySelector(`[data-subject="${subject}"].exam-obtained`);
+
+            const termTotal = termTotalEl ? parseFloat(termTotalEl.value) || 0 : 0;
+            const termObtained = termObtEl ? parseFloat(termObtEl.value) || 0 : 0;
+            const examTotal = examTotalEl ? parseFloat(examTotalEl.value) || 0 : 0;
+            const examObtained = examObtEl ? parseFloat(examObtEl.value) || 0 : 0;
+
+            totalTermTot += termTotal;
+            totalTermObt += termObtained;
+            totalExamTot += examTotal;
+            totalExamObt += examObtained;
+
+            const termPercent = termTotal > 0 ? (termObtained / termTotal) * 100 : 0;
+            const examPercent = examTotal > 0 ? (examObtained / examTotal) * 100 : 0;
+            const combinedTotal = termTotal + examTotal;
+            const combinedObtained = termObtained + examObtained;
+            const averagePercent = combinedTotal > 0 ? (combinedObtained / combinedTotal) * 100 : 0;
+            const grade = calculateGrade(averagePercent);
+
+            return new TableRow({
+                children: [
+                    createCell(subject, true, 2500, "FFFFFF", "000000"),
+                    createCell(`${termObtained} / ${termTotal} (${termPercent.toFixed(0)}%)`),
+                    createCell(`${examObtained} / ${examTotal} (${examPercent.toFixed(0)}%)`),
+                    createCell(`${averagePercent.toFixed(2)}%`),
+                    createCell(grade)
+                ]
+            });
+        });
+
+        // Overall Stats
+        const grandObt = totalTermObt + totalExamObt;
+        const grandTot = totalTermTot + totalExamTot;
+        const overallPerc = grandTot > 0 ? (grandObt / grandTot) * 100 : 0;
+        const overallGrade = calculateGrade(overallPerc);
+
+        // --- Document Construction ---
         const doc = new Document({
             sections: [{
-                properties: {},
+                properties: {
+                    page: {
+                        margin: {
+                            top: 500,
+                            right: 500,
+                            bottom: 500,
+                            left: 500,
+                        },
+                    },
+                },
                 children: [
+                    // Header Table (Logo + Text | Right Text)
+                    new Table({
+                        rows: [
+                            new TableRow({
+                                children: [
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                children: [
+                                                    logoImage ? logoImage : new TextRun(""),
+                                                    new TextRun({ text: "  " }), // Spacer
+                                                    new TextRun({ text: "The Smart School", bold: true, size: 32, color: "E31E24", font: "Helvetica" })
+                                                ],
+                                                alignment: AlignmentType.LEFT
+                                            }),
+                                            new Paragraph({
+                                                children: [
+                                                    new TextRun({ text: "Excellence in Education", italics: true, size: 18, color: "666666", font: "Helvetica" })
+                                                ],
+                                                alignment: AlignmentType.LEFT,
+                                                indent: { left: 1440 } // Indent to align with text above (approx)
+                                            })
+                                        ],
+                                        width: { size: 60, type: WidthType.PERCENTAGE },
+                                        borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } }
+                                    }),
+                                    new TableCell({
+                                        children: [
+                                            new Paragraph({
+                                                children: [new TextRun({ text: "The Smart School", italics: true, size: 28, font: "Times New Roman" })],
+                                                alignment: AlignmentType.RIGHT
+                                            })
+                                        ],
+                                        width: { size: 40, type: WidthType.PERCENTAGE },
+                                        verticalAlign: "center",
+                                        borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } }
+                                    })
+                                ]
+                            })
+                        ],
+                        width: { size: 100, type: WidthType.PERCENTAGE }
+                    }),
+
+                    new Paragraph({ text: "", spacing: { after: 200 } }), // Spacer
+
+                    // Title
+                    new Paragraph({
+                        children: [new TextRun({ text: `Result Card - Term ${term}`, bold: true, size: 24, font: "Times New Roman" })],
+                        alignment: AlignmentType.CENTER,
+                        spacing: { after: 200 }
+                    }),
+
+                    // Student Info Table
+                    new Table({
+                        rows: [
+                            new TableRow({
+                                children: [
+                                    createCell("Campus Name:", true), createCell(campusName),
+                                    createCell("Academic Year:", true), createCell(`20${academicYear}, Term ${term}`)
+                                ]
+                            }),
+                            new TableRow({
+                                children: [
+                                    createCell("Student Name:", true), createCell(studentName),
+                                    createCell("Class/Section:", true), createCell(`${className} / ${section}`)
+                                ]
+                            }),
+                            new TableRow({
+                                children: [
+                                    createCell("Roll No:", true), createCell(rollNo),
+                                    createCell("Total Marks:", true), createCell(totalMarks)
+                                ]
+                            })
+                        ],
+                        width: { size: 100, type: WidthType.PERCENTAGE },
+                        borders: {
+                            top: { style: BorderStyle.NONE },
+                            bottom: { style: BorderStyle.NONE },
+                            left: { style: BorderStyle.NONE },
+                            right: { style: BorderStyle.NONE },
+                            insideVertical: { style: BorderStyle.NONE },
+                            insideHorizontal: { style: BorderStyle.NONE },
+                        }
+                    }),
+
+                    new Paragraph({ text: "", spacing: { after: 200 } }), // Spacer
+
+                    // Academic Performance Header
+                    new Paragraph({
+                        children: [new TextRun({ text: "Academic Performance", bold: true, size: 20, font: "Times New Roman" })],
+                        alignment: AlignmentType.CENTER,
+                        spacing: { after: 100 }
+                    }),
+
+                    // Performance Table
+                    new Table({
+                        rows: [
+                            new TableRow({
+                                children: [
+                                    createCell("Subject", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Term (Obt/Total)", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Exam (Obt/Total)", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Average %", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Grade", true, 2500, "E31E24", "FFFFFF")
+                                ],
+                                tableHeader: true
+                            }),
+                            ...subjectRows
+                        ],
+                        width: { size: 100, type: WidthType.PERCENTAGE }
+                    }),
+
+                    new Paragraph({ text: "", spacing: { after: 200 } }), // Spacer
+
+                    // Overall Summary Table
+                    new Table({
+                        rows: [
+                            new TableRow({
+                                children: [
+                                    createCell("Total Term", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Total Exam", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Overall %", true, 2500, "E31E24", "FFFFFF"),
+                                    createCell("Overall Grade", true, 2500, "E31E24", "FFFFFF")
+                                ]
+                            }),
+                            new TableRow({
+                                children: [
+                                    createCell(`${totalTermObt} / ${totalTermTot}`),
+                                    createCell(`${totalExamObt} / ${totalExamTot}`),
+                                    createCell(`${overallPerc.toFixed(2)}%`),
+                                    createCell(overallGrade)
+                                ]
+                            })
+                        ],
+                        width: { size: 100, type: WidthType.PERCENTAGE }
+                    }),
+
+                    new Paragraph({ text: "", spacing: { after: 300 } }), // Spacer
+
+                    // Signatures
                     new Paragraph({
                         children: [
-                            new TextRun({
-                                text: `Student Result Card - ${studentName}`,
-                                bold: true,
-                                size: 24
-                            })
+                            new TextRun({ text: "________________    ________________    ________________    ________________", font: "Times New Roman" })
                         ],
                         alignment: AlignmentType.CENTER
                     }),
                     new Paragraph({
                         children: [
-                            new TextRun({
-                                text: `Class: ${className}`,
-                                size: 18
-                            })
-                        ],
-                        alignment: AlignmentType.CENTER
-                    }),
-                    new Paragraph({
-                        children: [
-                            new TextRun({
-                                text: "This is a generated result card from The Smart School Result Generator.",
-                                size: 14
-                            })
+                            new TextRun({ text: "Class Teacher         Campus Stamp         Head of School            Date        ", font: "Times New Roman", size: 14 })
                         ],
                         alignment: AlignmentType.CENTER
                     })

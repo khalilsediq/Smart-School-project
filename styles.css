@@ -1351,52 +1351,86 @@ header p {
 
     /* Compact spacing for print */
     .result-header {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        border-bottom: none !important;
+    }
+
+    .school-branding {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .school-logo {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .school-info {
+        text-align: left !important;
     }
 
     .result-details {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
     }
 
     .academic-performance {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
     }
 
     .general-progress {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
     }
 
     .comments-section {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
     }
 
     .comments-signatures {
-        margin-top: 16px;
+        margin-top: 12px;
     }
 
     /* Reduced font sizes for print */
+    /* Reduced font sizes for print */
     .school-info h2 {
-        font-size: 1.4rem;
+        font-size: 1.4rem !important;
+        color: #E31E24 !important;
+        margin: 0 !important;
+        font-family: Helvetica, Arial, sans-serif !important;
+    }
+
+    .school-info p {
+        color: #666 !important;
+        font-style: italic !important;
+        margin: 0 !important;
+        font-size: 0.9rem !important;
     }
 
     .school-name-large {
-        font-size: 1.9rem;
+        font-size: 1.8rem !important;
+        font-family: "Times New Roman", serif !important;
+        font-style: italic !important;
+        color: black !important;
+        display: block !important;
     }
 
     .result-details h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .academic-performance h3,
     .general-progress h3,
     .comments-section h3 {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .performance-table,
     .overall-summary,
     .progress-table {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 
     .performance-table th,
@@ -1405,28 +1439,38 @@ header p {
     .overall-summary td,
     .progress-table th,
     .progress-table td {
-        padding: 6px 4px;
-        font-size: 0.78rem;
+        padding: 4px 2px;
+        font-size: 0.7rem;
+        border: 1px solid #ccc !important;
+    }
+
+    .performance-table th,
+    .overall-summary th,
+    .progress-table th {
+        background-color: #E31E24 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
     .grading-key {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
 
     .comment-box {
-        min-height: 40px;
-        padding: 6px;
+        min-height: 30px;
+        padding: 4px;
     }
 
     .comment-line label {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 
     .signature-line {
-        height: 18px;
+        height: 15px;
     }
 
     .signature-label {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 }
