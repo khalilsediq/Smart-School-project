@@ -1118,6 +1118,10 @@ header p {
         padding: 0;
         box-shadow: none;
         background: white;
+        z-index: 9999;
+        /* Ensure it's on top */
+        display: block !important;
+        /* Force display */
     }
 
     .result-actions {
@@ -1139,7 +1143,6 @@ header p {
         min-height: auto;
     }
 
-    .container,
     header,
     .input-section {
         display: none;

@@ -578,51 +578,75 @@ function downloadPDF() {
 }
 
 // Download DOCX function
+// Download DOCX function
 async function downloadDOCX() {
-    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType } = docx;
+    console.log("Starting downloadDOCX...");
 
-    const resultCard = document.getElementById('resultCard');
-    const studentName = document.getElementById('studentName').value;
-    const className = document.getElementById('studentClass').value;
+    if (typeof docx === 'undefined') {
+        alert("Error: 'docx' library is not loaded. Please check your internet connection.");
+        console.error("docx library is undefined");
+        return;
+    }
 
-    const doc = new Document({
-        sections: [{
-            properties: {},
-            children: [
-                new Paragraph({
-                    children: [
-                        new TextRun({
-                            text: `Student Result Card - ${studentName}`,
-                            bold: true,
-                            size: 24
-                        })
-                    ],
-                    alignment: AlignmentType.CENTER
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun({
-                            text: `Class: ${className}`,
-                            size: 18
-                        })
-                    ],
-                    alignment: AlignmentType.CENTER
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun({
-                            text: "This is a generated result card from The Smart School Result Generator.",
-                            size: 14
-                        })
-                    ],
-                    alignment: AlignmentType.CENTER
-                })
-            ]
-        }]
-    });
+    if (typeof saveAs === 'undefined') {
+        alert("Error: 'FileSaver.js' library is not loaded. Please check your internet connection.");
+        console.error("saveAs is undefined");
+        return;
+    }
 
-    const blob = await Packer.toBlob(doc);
-    saveAs(blob, `student_result_card_${studentName}.docx`);
+    try {
+        console.log("Initializing DOCX document...");
+        const { Document, Packer, Paragraph, TextRun, AlignmentType } = docx;
+
+        const studentName = document.getElementById('studentName').value || "Student";
+        const className = document.getElementById('studentClass').value || "Class";
+
+        const doc = new Document({
+            sections: [{
+                properties: {},
+                children: [
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Student Result Card - ${studentName}`,
+                                bold: true,
+                                size: 24
+                            })
+                        ],
+                        alignment: AlignmentType.CENTER
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Class: ${className}`,
+                                size: 18
+                            })
+                        ],
+                        alignment: AlignmentType.CENTER
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: "This is a generated result card from The Smart School Result Generator.",
+                                size: 14
+                            })
+                        ],
+                        alignment: AlignmentType.CENTER
+                    })
+                ]
+            }]
+        });
+
+        console.log("Document created. Generating blob...");
+        const blob = await Packer.toBlob(doc);
+        console.log("Blob generated. Saving file...");
+        saveAs(blob, `Result_Card_${studentName}.docx`);
+        console.log("File saved.");
+
+    } catch (error) {
+        console.error("Error generating DOCX:", error);
+        alert("An error occurred while generating the DOCX file:\n" + error.message);
+    }
 }
 
 // Print result function
