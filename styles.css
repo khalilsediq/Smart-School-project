@@ -26,7 +26,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #e0c8c8 0%, #9c2a2a 100%);
+    background: linear-gradient(135deg, #e0c8c8 0%, #bb6969 100%);
     min-height: 100vh;
 }
 
@@ -1487,4 +1487,40 @@ header p {
     .signature-label {
         font-size: 0.65rem;
     }
+}
+
+
+
+/* fotter section  */
+
+.dev-credit {
+    text-align: center;
+    /* margin-top: 40px; */
+    font-family: 'Inter', sans-serif;
+}
+
+.dev-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: #ededed;
+}
+
+.dev-tagline {
+    font-size: 13px;
+    color: #d9dfea;
+    opacity: .85;
+}
+
+#footer-custom {
+    background-color: #374151;
+    opacity: 0.8;
+    color: #fff;
+    text-align: center;
+    padding: 6px 0px 6px 0px;
+    /* border-radius: 20px ; */
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+
 }
