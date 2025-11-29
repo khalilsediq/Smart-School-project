@@ -1,4 +1,48 @@
-﻿// Class-specific subjects configuration
+﻿// --- Login Protection Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    const AUTH_USER = 'khalilThePro';
+    const AUTH_PASS = '12345';
+
+    const loginOverlay = document.getElementById('loginOverlay');
+    const container = document.querySelector('.container');
+    const loginForm = document.getElementById('loginForm');
+    const loginUser = document.getElementById('loginUser');
+    const loginPass = document.getElementById('loginPass');
+    const loginError = document.getElementById('loginError');
+
+    // Check Session
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+        showWebsite();
+    }
+
+    // Handle Login
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = loginUser.value;
+            const pass = loginPass.value;
+
+            if (user === AUTH_USER && pass === AUTH_PASS) {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                showWebsite();
+            } else {
+                loginError.style.display = 'block';
+                // Shake animation
+                const card = document.querySelector('.login-card');
+                card.style.transform = 'translateX(10px)';
+                setTimeout(() => card.style.transform = 'translateX(-10px)', 100);
+                setTimeout(() => card.style.transform = 'translateX(0)', 200);
+            }
+        });
+    }
+
+    function showWebsite() {
+        if (loginOverlay) loginOverlay.style.display = 'none';
+        if (container) container.style.display = 'block';
+    }
+});
+
+// Class-specific subjects configuration
 const classSubjects = {
     'PlayGroup': ['English', 'Urdu', 'Math', 'Islamiat', 'Nazra', 'General-Knowledge'],
     'Nursery': ['English', 'Urdu', 'Math', 'Computer', 'Islamiat', 'Nazra', 'General-knowledge'],

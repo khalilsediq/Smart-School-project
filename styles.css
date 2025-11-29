@@ -1513,7 +1513,7 @@ header p {
 
 #footer-custom {
     background-color: #374151;
-    opacity: 0.8;
+    opacity: 0.6;
     color: #fff;
     text-align: center;
     padding: 6px 0px 6px 0px;
@@ -1522,5 +1522,6 @@ header p {
     bottom: 0;
     width: 100%;
     z-index: 1000;
-
+    margin-top: 20px;
+    
 }

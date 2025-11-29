@@ -15,21 +15,141 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="https://unpkg.com/docx@7.8.2/build/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        /* Login Overlay Styles */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a202c;
+            /* Dark background */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-card {
+            background-color: #2d3748;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #4a5568;
+        }
+
+        .login-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: #a0aec0;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .login-label {
+            display: block;
+            color: #cbd5e0;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #4a5568;
+            border: 1px solid #718096;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-input:focus {
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .login-error {
+            color: #fc8181;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Hide main content initially */
+        .container {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Login Overlay -->
+    <div id="loginOverlay">
+        <div class="login-card">
+            <i class="fas fa-lock login-icon"></i>
+            <h2 class="login-title">Restricted Access</h2>
+            <p class="login-subtitle">Please login to access the Result Generator</p>
+
+            <form id="loginForm">
+                <div class="login-input-group">
+                    <label class="login-label">Username</label>
+                    <input type="text" id="loginUser" class="login-input" placeholder="Enter username" required>
+                </div>
+                <div class="login-input-group">
+                    <label class="login-label">Password</label>
+                    <input type="password" id="loginPass" class="login-input" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <p id="loginError" class="login-error"><i class="fas fa-exclamation-circle"></i> Invalid credentials</p>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <header id="header-custom">
             <img id="schoolLogo" src="TSS-LOGO.png" alt="School Logo" style="height: 80px; width: auto;">
             <h1 style="color: black;">The Smart School</h1>
         </header>
-        <p id="branding-cus">
-            <span
-                style="color: #363e4f; font-family: 'Inter', sans-serif; justify-content: center; text-align: center; display: block; ">
-                Built by
-                KS Labs —
-                khalilullah.dev</span>
-        </p>
+        
 
         <div class="main-content">
             <!-- Mobile Loading Indicator -->
@@ -40,6 +160,13 @@
 
             <!-- Input Form Section -->
             <div class="input-section">
+                <p id="branding-cus">
+            <span
+                style="color: #363e4f; font-family: 'Inter', sans-serif; justify-content: center; text-align: center; display: block; ">
+                Built by
+                KS Labs —
+                khalilullah.dev</span>
+        </p>
                 <h2>Enter Student Information</h2>
                 <form id="resultForm">
                     <div class="form-row">
@@ -145,7 +272,7 @@
     <footer id="footer-custom">
         <p class="dev-credit">
             <span class="dev-name">Khalilullah Sadique — Software Engineer</span><br>
-            <span class="dev-tagline">Web Design & Development</span>
+            <span class="dev-tagline">Web & Advance Mobile Application Developer</span>
         </p>
     </footer>
 
